@@ -3,13 +3,14 @@
 <div class="col-sm-offset-2 col-sm-8">
     <div class="panel panel-default">
         <div class="panel-heading">
-            New Task
+            {{$nn}}
         </div>
 
         <div class="panel-body">
             <!-- Display Validation Errors -->
             <!-- New Task Form -->
-            <form action="insert" method="get" class="form-horizontal">
+
+            <form action={{$r}} method="post" class="form-horizontal">
 
                 <!-- Task Name -->
                 <div class="form-group">
@@ -27,8 +28,9 @@
                     <div class="col-sm-offset-3 col-sm-6">
 
                         <button type="submit" class="btn btn-default">
-                            <i class="fa fa-btn fa-plus"></i>Add Task
+                            <i class="fa fa-btn fa-plus"></i> {{$bb}}
                         </button>
+
                     </div>
                 </div>
             </form>
@@ -58,15 +60,16 @@
 
                                 <!-- Task Delete Button -->
                                 <td>
-                                    <form action="delete/{{$item->id}}" method="POST">
+                                    <form action="{{route('task.delete',$item->id)}}" method="POST">
                                         @csrf
+                                        @method('delete')
                                         <button type="submit" class="btn btn-danger">
                                             <i class="fa fa-btn fa-trash"></i>Delete
                                         </button>
                                     </form>
                                 </td>
                                 <td>
-                                    <form action="editt/{{$item->id}}" method="POST">
+                                    <form action="{{route('task.edit',$item->id)}}" method="post">
                                         @csrf
                                         <button type="submit" class="btn btn-info">
                                             <i class="fa fa-btn fa-info"></i>Edit

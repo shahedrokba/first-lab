@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\TaskController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,11 +14,11 @@ use Illuminate\Support\Facades\DB;
 |
 */
 
-Route::get('/', function () {
-    $tasks = DB::table('tasks')->get();
-    return view('index',compact('tasks'));
+Route::get('/', [TaskController::class,'index'])->name('task');
+Route::post('insert',[TaskController::class,'store'])->name('task.insert');
+Route::delete('delete/{id}',[TaskController::class,'destroy'])->name('task.delete');
+Route::post('edit/{id}', [TaskController::class,'edit'])->name('task.edit');
 
-});
 
 
 Route::get('about',function(){
@@ -32,10 +33,7 @@ Route::get('task',function(){
    $tasks=["task 1","task 2","task 3"];
    return view('tasks',compact('tasks'));
 });
-Route::post('delete/{id}',function($id){
-DB::table('tasks')->where('id',$id)->delete();
-return redirect()->back();
-});
+/*
 Route::post('editt/{id}',function($id){
     $n = request('taskName');
     if($n){
@@ -47,14 +45,7 @@ Route::post('editt/{id}',function($id){
 
 });
 
-Route::get('insert',function(){
-    DB::table('tasks')->insert([
-        'name'=>$_GET['name'],
-        'created_at'=>now(),
-        'updated_at'=>now()
-    ]);
-    return redirect()->back();
-    });
+*/
 
 
 Route::get('front',function(){
